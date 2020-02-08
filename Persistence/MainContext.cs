@@ -1,6 +1,7 @@
 ﻿using Business.Entities;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Maps;
+using Persistence.Seed;
 
 
 namespace Persistence
@@ -26,6 +27,8 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new InvoiceItemMap());
             modelBuilder.ApplyConfiguration(new InvoiceMap());
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Tenant();
+            modelBuilder.Product();
         }
     }
 }
