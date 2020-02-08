@@ -62,5 +62,13 @@ namespace API.Controllers
                 ? StatusCode(500)
                 : (IActionResult) Ok(productResponse);
         }
+
+        [HttpGet("search-products/{productQuery}")]
+        public IActionResult SearchPrdoducts(string productQuery)
+        {
+            var productList = _productService.SearchProduct(productQuery);
+
+            return Ok(productList);
+        }
     }
 }
