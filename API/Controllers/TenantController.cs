@@ -10,12 +10,12 @@ namespace API.Controllers
     {
         private readonly ITenantService _tenantService;
 
-        
         public TenantController(ITenantService tenantService)
         {
             _tenantService = tenantService;
         }
 
+        //Tenant/createTenant
         [HttpPost("createTenant")]
         public IActionResult CreateTenant(Tenant tenant)
         {
@@ -31,6 +31,7 @@ namespace API.Controllers
                 : (IActionResult)Ok(tenantResponse);
         }
 
+        //tenant/getTenants
         [HttpGet("getTenants")]
         public IActionResult GetTenants()
         {

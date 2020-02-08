@@ -1,4 +1,5 @@
-﻿using Business.Entities;
+﻿using System.Collections.Generic;
+using Business.Entities;
 
 namespace Business.Interfaces
 {
@@ -6,6 +7,7 @@ namespace Business.Interfaces
     {
         Customer AddCustomer(Customer customer);
         Customer GetCustomer(int idCustomer);
-        Customer UpdateCustomer(Customer customer);
+        List<Customer> GetCustomerList();
+        List<Customer> GetCustomerListByTenant(int idTenant);
     }
 }

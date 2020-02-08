@@ -1,4 +1,5 @@
-﻿using Business.Entities;
+﻿using System.Collections.Generic;
+using Business.Entities;
 using Business.Interfaces;
 
 namespace Business.Services
@@ -17,9 +18,14 @@ namespace Business.Services
             return _customerRepository.AddCustomer(customer);
         }
 
-        public Customer UpdateCustomer(Customer customer)
+        public List<Customer> GetCustomersList()
         {
-            return _customerRepository.UpdateCustomer(customer);
+            return _customerRepository.GetCustomerList();
+        }
+
+        public List<Customer> GetCustomerListByTenant(int idTenant)
+        {
+            return _customerRepository.GetCustomerListByTenant(idTenant);
         }
 
         public Customer GetCustomer(int idCustomer)

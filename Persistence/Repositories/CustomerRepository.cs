@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Business.Entities;
 using Business.Interfaces;
 
@@ -29,10 +30,16 @@ namespace Persistence.Repositories
                 .FirstOrDefault(x => x.IdCustomer == idCustomer);
         }
 
-        public Customer UpdateCustomer(Customer customer)
+        public List<Customer> GetCustomerList()
         {
-            //todo
-            return customer;
+            return _context.Customers.ToList();
+        }
+
+        public List<Customer> GetCustomerListByTenant(int idTenant)
+        {
+            return _context.Customers
+                .Where(x => x.IdTenant == idTenant)
+                .ToList();
         }
     }
 }

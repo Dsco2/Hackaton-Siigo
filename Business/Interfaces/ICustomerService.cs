@@ -7,6 +7,7 @@ namespace Business.Interfaces
     {
         Customer GetCustomer(int idCustomer);
         Customer CreateCustomer(Customer customer);
-        Customer UpdateCustomer(Customer customer);
+        List<Customer> GetCustomersList();
+        List<Customer> GetCustomerListByTenant(int idTenant);
     }
 }
