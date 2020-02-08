@@ -10,6 +10,7 @@ namespace Persistence.Maps
         {
             builder.ToTable("ac_products");
             builder.HasKey(x => x.IdProduct);
+            
         }
     }
 }

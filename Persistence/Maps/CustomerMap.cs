@@ -10,7 +10,7 @@ namespace Persistence.Maps
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder.ToTable("customer");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.IdCustomer);
         }
     }
 }

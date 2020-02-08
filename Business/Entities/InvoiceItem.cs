@@ -1,4 +1,6 @@
-﻿namespace Business.Entities
+﻿using System.Collections.Generic;
+
+namespace Business.Entities
 {
     public class InvoiceItem
     {
@@ -9,5 +11,11 @@
         public float Quantity { get; set; }
         public float UnitValue { get; set; }
         public float ItemValue { get; set; }
+        
+        #region Relationships
+
+        public virtual ICollection<Tenant> Tenant { get; set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using Business.Entities;
+﻿using System.Security.Cryptography.X509Certificates;
+using Business.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,6 +11,7 @@ namespace Persistence.Maps
         {
             builder.ToTable("ac_invoices");
             builder.HasKey(x => x.IdInvoice);
+
         }
     }
 }

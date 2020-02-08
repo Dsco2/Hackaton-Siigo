@@ -20,7 +20,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Business.Entities.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdCustomer")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -30,7 +30,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCustomer");
 
                     b.ToTable("customer");
                 });
@@ -104,15 +104,36 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Business.Entities.Tenant", b =>
                 {
-                    b.Property<int>("IdTenant")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("IdTenant");
 
                     b.Property<string>("Name");
 
                     b.HasKey("IdTenant");
 
                     b.ToTable("ac_tenant");
+                });
+
+            modelBuilder.Entity("Business.Entities.Tenant", b =>
+                {
+                    b.HasOne("Business.Entities.Customer", "Customer")
+                        .WithMany("Tenant")
+                        .HasForeignKey("IdTenant")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Business.Entities.Invoice", "Invoice")
+                        .WithMany("Tenant")
+                        .HasForeignKey("IdTenant")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Business.Entities.InvoiceItem", "InvoiceItem")
+                        .WithMany("Tenant")
+                        .HasForeignKey("IdTenant")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Business.Entities.Product", "Product")
+                        .WithMany("Tenant")
+                        .HasForeignKey("IdTenant")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

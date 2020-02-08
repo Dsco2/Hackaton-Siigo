@@ -3,21 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class InitialModelCreate : Migration
+    public partial class AddRelationShips : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "IdTenant",
-                table: "customer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "customer",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "ac_invoice_items",
                 columns: table => new
@@ -72,40 +61,73 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "customer",
+                columns: table => new
+                {
+                    IdCustomer = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IdTenant = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_customer", x => x.IdCustomer);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ac_tenant",
                 columns: table => new
                 {
-                    IdTenant = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IdTenant = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ac_tenant", x => x.IdTenant);
+                    table.ForeignKey(
+                        name: "FK_ac_tenant_customer_IdTenant",
+                        column: x => x.IdTenant,
+                        principalTable: "customer",
+                        principalColumn: "IdCustomer",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ac_tenant_ac_invoices_IdTenant",
+                        column: x => x.IdTenant,
+                        principalTable: "ac_invoices",
+                        principalColumn: "IdInvoice",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ac_tenant_ac_invoice_items_IdTenant",
+                        column: x => x.IdTenant,
+                        principalTable: "ac_invoice_items",
+                        principalColumn: "IdInvoiceItem",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ac_tenant_ac_products_IdTenant",
+                        column: x => x.IdTenant,
+                        principalTable: "ac_products",
+                        principalColumn: "IdProduct",
+                        onDelete: ReferentialAction.Cascade);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ac_invoice_items");
+                name: "ac_tenant");
+
+            migrationBuilder.DropTable(
+                name: "customer");
 
             migrationBuilder.DropTable(
                 name: "ac_invoices");
 
             migrationBuilder.DropTable(
-                name: "ac_products");
+                name: "ac_invoice_items");
 
             migrationBuilder.DropTable(
-                name: "ac_tenant");
-
-            migrationBuilder.DropColumn(
-                name: "IdTenant",
-                table: "customer");
-
-            migrationBuilder.DropColumn(
-                name: "LastName",
-                table: "customer");
+                name: "ac_products");
         }
     }
 }
