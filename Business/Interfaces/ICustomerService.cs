@@ -9,5 +9,6 @@ namespace Business.Interfaces
         Customer CreateCustomer(Customer customer);
         List<Customer> GetCustomersList();
         List<Customer> GetCustomerListByTenant(int idTenant);
+        List<Customer> SearchCustomer(int searchId, string searchQuery);
     }
 }

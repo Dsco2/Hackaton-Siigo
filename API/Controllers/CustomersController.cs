@@ -1,4 +1,5 @@
-﻿using Business.Entities;
+﻿using API.Models;
+using Business.Entities;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,6 +70,14 @@ namespace API.Controllers
             return customerListResponse == null
                 ? StatusCode(500)
                 : (IActionResult)Ok(customerListResponse);
+        }
+
+        [HttpPost("search-customers")]
+        public IActionResult SearchCustomers(SearchVm search)
+        {
+            var customersList = _customerService.SearchCustomer(search.Id, search.query);
+
+            return Ok(customersList);
         }
     }
 }
