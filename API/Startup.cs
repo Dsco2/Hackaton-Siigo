@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace API
 {
@@ -23,6 +24,24 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "SIIGO 2020-02-08 Hackaton API documentation",
+                    Description = "This documentation is updated automatically based on the API code",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "Spiders Team",
+                        Email = "ing-cantor@hotmail.com",
+                        Url = "https://tbd.com"
+                    }
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<MainContext>();
             var containerBuilder = new ContainerBuilder();
@@ -46,6 +65,9 @@ namespace API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(x => { x.SwaggerEndpoint(
+                "/swagger/v1/swagger.json", "SIIGO Hackaton API docs"); });
         }
     }
 }
