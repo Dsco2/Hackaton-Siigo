@@ -12,8 +12,11 @@ namespace IoC
         {
             builder.RegisterType<CustomerService>().As<ICustomerService>();
             builder.RegisterType<TenantService>().As<ITenantService>();
+            builder.RegisterType<ProductService>().As<IProductService>();
+
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>();
             builder.RegisterType<TenantRepository>().As<ITenantRepository>();
+            builder.RegisterType<ProductRepository>().As<IProductRepository>();
         }
         
     }
