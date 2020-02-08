@@ -10,6 +10,9 @@ namespace Persistence.Maps
         {
             builder.ToTable("ac_invoice_items");
             builder.HasKey(x => x.IdInvoiceItem);
+            builder.HasOne(x => x.Tenant);
+            builder.HasOne(x => x.Product);
+            builder.HasOne(x => x.Invoice);
         }
     }
 }

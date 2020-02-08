@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Business.Entities;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,11 +15,47 @@ namespace API.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("GetCustomer/{idCustomer}")]
+        public IActionResult Get(int idCustomer)
         {
-            var temp = _customerService.GetCustomers();
-            return Ok(temp);
+            if (idCustomer<1)
+            {
+                return BadRequest();
+            }
+            var customerResponse = _customerService.GetCustomer(idCustomer);
+            return customerResponse == null
+                ?StatusCode(500)
+                :(IActionResult)Ok(customerResponse);
+        }
+
+        [HttpPost("createCustomer")]
+        public IActionResult CreateCustomer(Customer customer)
+        {
+            if (customer == null)
+            {
+                return BadRequest();
+            }
+
+            var customerResponse = _customerService.CreateCustomer(customer);
+
+            return customerResponse == null
+                   ? StatusCode(500)
+                   : (IActionResult)Ok(customerResponse);
+        }
+
+        [HttpPost("updateCustomer")]
+        public IActionResult UpdateCustomer(Customer customer)
+        {
+            if (customer == null)
+            {
+                return BadRequest();
+            }
+
+            var customerResponse = _customerService.UpdateCustomer(customer);
+
+            return customerResponse == null
+                ? StatusCode(500)
+                : (IActionResult)Ok(customerResponse);
         }
     }
 }

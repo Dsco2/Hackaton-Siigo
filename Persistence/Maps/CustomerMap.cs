@@ -1,5 +1,4 @@
-﻿
-using Business.Entities;
+﻿using Business.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,6 +10,7 @@ namespace Persistence.Maps
         {
             builder.ToTable("customer");
             builder.HasKey(x => x.IdCustomer);
+            builder.HasOne(x => x.Tenant);
         }
     }
 }

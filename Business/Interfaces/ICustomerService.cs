@@ -5,6 +5,8 @@ namespace Business.Interfaces
 {
     public interface ICustomerService
     {
-        IEnumerable<Customer> GetCustomers();
+        Customer GetCustomer(int idCustomer);
+        Customer CreateCustomer(Customer customer);
+        Customer UpdateCustomer(Customer customer);
     }
 }
