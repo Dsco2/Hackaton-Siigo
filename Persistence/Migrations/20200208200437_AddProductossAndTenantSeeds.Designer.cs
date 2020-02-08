@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20200208193939_AddProductossAndTenantSeeds")]
+    [Migration("20200208200437_AddProductossAndTenantSeeds")]
     partial class AddProductossAndTenantSeeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,18 +119,37 @@ namespace Persistence.Migrations
                     b.ToTable("ac_products");
 
                     b.HasData(
-                        new { IdProduct = 1, Description = "Lether wallet", IdTenant = 3, ListPrice = 100000f, Name = "wallet" },
-                        new { IdProduct = 2, Description = "Lether Shoes", IdTenant = 3, ListPrice = 75000f, Name = "Shoes" },
-                        new { IdProduct = 3, Description = "Lether Jacket", IdTenant = 3, ListPrice = 350000f, Name = "Jacket" },
-                        new { IdProduct = 4, Description = "Lether Hat", IdTenant = 3, ListPrice = 200000f, Name = "Hat" },
-                        new { IdProduct = 5, Description = "Fresh Potatoes", IdTenant = 2, ListPrice = 15616f, Name = "Potatoes" },
-                        new { IdProduct = 6, Description = "Fresh Tomatoes", IdTenant = 2, ListPrice = 65464f, Name = "Tomatoes" },
-                        new { IdProduct = 7, Description = "Fresh Pineaples", IdTenant = 2, ListPrice = 4468f, Name = "Pineaples" },
-                        new { IdProduct = 8, Description = "Fresh Onions", IdTenant = 2, ListPrice = 114f, Name = "Onions" },
-                        new { IdProduct = 9, Description = "Rice", IdTenant = 1, ListPrice = 65464f, Name = "Rice" },
-                        new { IdProduct = 10, Description = "Beens", IdTenant = 1, ListPrice = 6554654f, Name = "Beens" },
-                        new { IdProduct = 11, Description = "Clothes", IdTenant = 1, ListPrice = 6546f, Name = "Clothes" },
-                        new { IdProduct = 12, Description = "Meat", IdTenant = 1, ListPrice = 65465f, Name = "Meat" }
+                        new { IdProduct = 1, Description = "Billetera negra de cuero", IdTenant = 3, ListPrice = 100000f, Name = "Billetera negra" },
+                        new { IdProduct = 2, Description = "Billeteras artesanales de cuero", IdTenant = 3, ListPrice = 75000f, Name = "Billeteras artesanales" },
+                        new { IdProduct = 3, Description = "Biiletera gris de cuero", IdTenant = 3, ListPrice = 350000f, Name = "Biiletera gris" },
+                        new { IdProduct = 4, Description = "Billetera importada de cuero", IdTenant = 3, ListPrice = 350001f, Name = "Billetera importada" },
+                        new { IdProduct = 5, Description = "Sombreros para hombre de cuero", IdTenant = 3, ListPrice = 350002f, Name = "Sombreros para hombre" },
+                        new { IdProduct = 6, Description = "Sombreros para mujer de cuero", IdTenant = 3, ListPrice = 350003f, Name = "Sombreros para mujer" },
+                        new { IdProduct = 7, Description = "Chaqueta tipo motociclista de cuero", IdTenant = 3, ListPrice = 350004f, Name = "Chaqueta tipo motociclista" },
+                        new { IdProduct = 8, Description = "Chaqueta importada de cuero", IdTenant = 3, ListPrice = 350005f, Name = "Chaqueta importada" },
+                        new { IdProduct = 9, Description = "Chaqueta artesanal de cuero", IdTenant = 3, ListPrice = 350006f, Name = "Chaqueta artesanal" },
+                        new { IdProduct = 10, Description = "Chaqueta  de cuero", IdTenant = 3, ListPrice = 350007f, Name = "Chaqueta " },
+                        new { IdProduct = 11, Description = "Sombrero importado de cuero", IdTenant = 3, ListPrice = 200000f, Name = "Sombrero importado" },
+                        new { IdProduct = 12, Description = "Papa criolla marca Jumbo", IdTenant = 2, ListPrice = 5646f, Name = "Papa criolla" },
+                        new { IdProduct = 13, Description = "Papa sabadera marca Jumbo", IdTenant = 2, ListPrice = 45645f, Name = "Papa sabadera" },
+                        new { IdProduct = 14, Description = "Papa importada marca Jumbo", IdTenant = 2, ListPrice = 3546f, Name = "Papa importada" },
+                        new { IdProduct = 15, Description = "Papas fritas marca Jumbo", IdTenant = 2, ListPrice = 64554f, Name = "Papas fritas" },
+                        new { IdProduct = 16, Description = "Papas  marca Jumbo", IdTenant = 2, ListPrice = 15616f, Name = "Papas " },
+                        new { IdProduct = 17, Description = "Tomates marca Jumbo", IdTenant = 2, ListPrice = 65464f, Name = "Tomates" },
+                        new { IdProduct = 18, Description = "Piñas marca Jumbo", IdTenant = 2, ListPrice = 4468f, Name = "Piñas" },
+                        new { IdProduct = 19, Description = "Cebollas marca Jumbo", IdTenant = 2, ListPrice = 114f, Name = "Cebollas" },
+                        new { IdProduct = 20, Description = "Leche marca Exito", IdTenant = 1, ListPrice = 56454f, Name = "Leche" },
+                        new { IdProduct = 21, Description = "Leche entera marca Exito", IdTenant = 1, ListPrice = 100000f, Name = "Leche entera" },
+                        new { IdProduct = 22, Description = "Leche deslactosada marca Exito", IdTenant = 1, ListPrice = 654654f, Name = "Leche deslactosada" },
+                        new { IdProduct = 23, Description = "Leche descremada marca Exito", IdTenant = 1, ListPrice = 45655f, Name = "Leche descremada" },
+                        new { IdProduct = 24, Description = "Leche de almendras marca Exito", IdTenant = 1, ListPrice = 5454f, Name = "Leche de almendras" },
+                        new { IdProduct = 25, Description = "Leche de soja marca Exito", IdTenant = 1, ListPrice = 5456f, Name = "Leche de soja" },
+                        new { IdProduct = 26, Description = "Arroz integral marca Exito", IdTenant = 1, ListPrice = 8785f, Name = "Arroz integral" },
+                        new { IdProduct = 27, Description = "Ropa informal marca Exito", IdTenant = 1, ListPrice = 2156f, Name = "Ropa informal" },
+                        new { IdProduct = 28, Description = "Arroz marca Exito", IdTenant = 1, ListPrice = 65464f, Name = "Arroz" },
+                        new { IdProduct = 29, Description = "Frijol marca Exito", IdTenant = 1, ListPrice = 6554654f, Name = "Frijol" },
+                        new { IdProduct = 30, Description = "Ropa formal marca Exito", IdTenant = 1, ListPrice = 6546f, Name = "Ropa formal" },
+                        new { IdProduct = 31, Description = "Carnes congeladas marca Exito", IdTenant = 1, ListPrice = 65465f, Name = "Carnes congeladas" }
                     );
                 });
 
