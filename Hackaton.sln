@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{EAA8229A-413C-495F-9EB2-E7DF5F477E9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{1D06F32B-EE5F-439F-81B8-AC8DF256F725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{1D06F32B-EE5F-439F-81B8-AC8DF256F725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{F5C40FED-BA7C-4D73-9239-3B9629D55B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{F5C40FED-BA7C-4D73-9239-3B9629D55B6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoC", "IoC\IoC.csproj", "{F8205BE5-5886-4304-B371-64664C9A2E81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC", "IoC\IoC.csproj", "{F8205BE5-5886-4304-B371-64664C9A2E81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{8ED14CE2-E034-4F33-A367-471DC0B53271}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F8205BE5-5886-4304-B371-64664C9A2E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8205BE5-5886-4304-B371-64664C9A2E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8205BE5-5886-4304-B371-64664C9A2E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ED14CE2-E034-4F33-A367-471DC0B53271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED14CE2-E034-4F33-A367-471DC0B53271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED14CE2-E034-4F33-A367-471DC0B53271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED14CE2-E034-4F33-A367-471DC0B53271}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
