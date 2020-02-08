@@ -1,6 +1,8 @@
-﻿using API.Models;
+﻿using System.Threading.Tasks;
+using API.Models;
 using Business.Entities;
 using Business.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -70,6 +72,14 @@ namespace API.Controllers
             var productList = _productService.SearchProduct(search.Id, search.query);
 
             return Ok(productList);
+        }
+
+        [HttpPost]
+        [Route("upload-file")]
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
+        {
+            
+            return Ok();
         }
     }
 }

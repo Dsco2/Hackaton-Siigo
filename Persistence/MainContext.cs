@@ -16,6 +16,7 @@ namespace Persistence
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<InvoiceItem> InvoicesItems { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<SearchHistory> SearchHistories { get; set; }
 
         public MainContext(DbContextOptions<MainContext> options) : base(options) { }
 
@@ -26,6 +27,7 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new TenantMap());
             modelBuilder.ApplyConfiguration(new InvoiceItemMap());
             modelBuilder.ApplyConfiguration(new InvoiceMap());
+            modelBuilder.ApplyConfiguration(new SearchHistoryMap());
             base.OnModelCreating(modelBuilder);
             modelBuilder.Tenant();
             modelBuilder.Product();
