@@ -1,1 +1,6 @@
-export { fetchTenants, createTenant } from "./actions/tenant";
+export {
+  fetchTenants,
+  createTenant,
+  setActiveTenant,
+  logout
+} from "./actions/tenant";

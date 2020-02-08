@@ -1,0 +1,8 @@
+.TenantCard {
+  max-width: 18rem;
+}
+
+.TenantCard:focus,
+.TenantCard:hover {
+  cursor: pointer;
+}

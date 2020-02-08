@@ -3,6 +3,8 @@ import SiigoNavbar from "../../components/Navbar/SiigoNavbar";
 import CreateTenantForm from "../../components/Tenants/CreateTenantForm";
 import { connect } from "react-redux";
 import * as actions from "../../store/actionCreators";
+import * as classes from "./Tenant.module.css";
+import { Redirect } from "react-router";
 
 class Tenant extends Component {
   componentDidMount() {
@@ -13,14 +15,18 @@ class Tenant extends Component {
     this.props.createTenant(name, theme);
   };
 
+  handleSelectTenant = tenant => {
+    this.props.setActiveTenant(tenant);
+  };
+
   render() {
     const tenantsJsx = this.props.tenants ? (
       this.props.tenants.map(tenant => {
         return (
           <div className="col-12 col-md-4" key={tenant.idTenant}>
             <div
-              className={`card text-white mb-3 bg-${tenant.theme}`}
-              style={{ maxWidth: "18rem" }}
+              className={`card text-white mb-3 bg-${tenant.theme} ${classes.TenantCard}`}
+              onClick={() => this.handleSelectTenant(tenant)}
             >
               <div className="card-header">Empresa</div>
               <div className="card-body">
@@ -41,6 +47,7 @@ class Tenant extends Component {
       <>
         <SiigoNavbar />
         <div className="container mt-3">
+          {this.props.activeTenant.idTenant && <Redirect to="/active-tenant" />}
           <h2>Bienvenido</h2>
           <p>Por favor elija su empresa para continuar</p>
           <div className="row">{tenantsJsx}</div>
@@ -54,14 +61,16 @@ class Tenant extends Component {
 
 const mapStateToProps = state => {
   return {
-    tenants: state.tenant.tenantsList
+    tenants: state.tenant.tenantsList,
+    activeTenant: state.tenant.activeTenant
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchTenants: () => dispatch(actions.fetchTenants()),
-    createTenant: (name, theme) => dispatch(actions.createTenant(name, theme))
+    createTenant: (name, theme) => dispatch(actions.createTenant(name, theme)),
+    setActiveTenant: tenant => dispatch(actions.setActiveTenant(tenant))
   };
 };
 

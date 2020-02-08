@@ -24,6 +24,20 @@ export const createTenant = (name, theme) => {
   };
 };
 
+export const setActiveTenant = tenant => {
+  return {
+    type: actions.SET_ACTIVE_TENANT,
+    activeTenant: tenant
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actions.SET_ACTIVE_TENANT,
+    activeTenant: {}
+  };
+};
+
 const addTenant = newTenant => {
   return {
     type: actions.ADD_TENANT,

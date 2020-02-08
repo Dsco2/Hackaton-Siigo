@@ -11,13 +11,14 @@ const reducer = (state = initialState, action) => {
       return updateTenants(state, action);
     case actions.ADD_TENANT:
       return addTenant(state, action);
+    case actions.SET_ACTIVE_TENANT:
+      return setActiveTenant(state, action);
     default:
       return state;
   }
 };
 
 const updateTenants = (state, action) => {
-  debugger;
   return {
     ...state,
     tenantsList: action.tenantsList
@@ -29,6 +30,13 @@ const addTenant = (state, action) => {
   return {
     ...state,
     tenantsList: updatedTenantsList
+  };
+};
+
+const setActiveTenant = (state, action) => {
+  return {
+    ...state,
+    activeTenant: action.activeTenant
   };
 };
 
