@@ -1,0 +1,1 @@
+export { fetchTenants } from './actions/tenant';

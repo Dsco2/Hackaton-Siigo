@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SiigoNavbar from "../../components/Navbar/SiigoNavbar";
 import CreateTenantForm from "../../components/Tenants/CreateTenantForm";
+import { connect } from "react-redux";
+import * as actions from "../../store/actionCreators";
 
 class Tenant extends Component {
   state = {
@@ -31,6 +33,11 @@ class Tenant extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    this.props.fetchTenants();
+  }
+
   render() {
     const tenantsJsx = this.state.tenants.map(tenant => {
       return (
@@ -66,4 +73,16 @@ class Tenant extends Component {
   }
 }
 
-export default Tenant;
+const mapStateToProps = state => {
+  return {
+    tenants: state.tenant.tenantsList
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchTenants: () => dispatch(actions.fetchTenants())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tenant);
