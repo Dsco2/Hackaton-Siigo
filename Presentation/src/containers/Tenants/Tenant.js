@@ -5,58 +5,37 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actionCreators";
 
 class Tenant extends Component {
-  state = {
-    themes: [
-      "primary",
-      "secondary",
-      "success",
-      "danger",
-      "warning",
-      "info",
-      "dark"
-    ],
-    tenants: [
-      {
-        id: 1,
-        name: "Exito",
-        theme: "warning"
-      },
-      {
-        id: 2,
-        name: "Jumbo",
-        theme: "success"
-      },
-      {
-        id: 3,
-        name: "Cueros SAS",
-        theme: "info"
-      }
-    ]
-  };
-
   componentDidMount() {
     this.props.fetchTenants();
   }
 
+  handleCreateTenant = (name, theme) => {
+    this.props.createTenant(name, theme);
+  };
+
   render() {
-    const tenantsJsx = this.state.tenants.map(tenant => {
-      return (
-        <div className="col-12 col-md-4" key={tenant.id}>
-          <div
-            className={`card text-white mb-3 bg-${tenant.theme}`}
-            style={{ maxWidth: "18rem" }}
-          >
-            <div className="card-header">Empresa</div>
-            <div className="card-body">
-              <h5 className="card-title">{tenant.name}</h5>
-              <p className="card-text">
-                Da clic acá para ingresar al módulo de esta compañia
-              </p>
+    const tenantsJsx = this.props.tenants ? (
+      this.props.tenants.map(tenant => {
+        return (
+          <div className="col-12 col-md-4" key={tenant.idTenant}>
+            <div
+              className={`card text-white mb-3 bg-${tenant.theme}`}
+              style={{ maxWidth: "18rem" }}
+            >
+              <div className="card-header">Empresa</div>
+              <div className="card-body">
+                <h5 className="card-title">{tenant.name}</h5>
+                <p className="card-text">
+                  Da clic acá para ingresar al módulo de esta compañia
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      })
+    ) : (
+      <div>No hay ninguna empresa creada actualmente</div>
+    );
 
     return (
       <>
@@ -66,7 +45,7 @@ class Tenant extends Component {
           <p>Por favor elija su empresa para continuar</p>
           <div className="row">{tenantsJsx}</div>
           <hr />
-          <CreateTenantForm themes={this.state.themes} />
+          <CreateTenantForm onCreateTenant={this.handleCreateTenant} />
         </div>
       </>
     );
@@ -81,7 +60,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchTenants: () => dispatch(actions.fetchTenants())
+    fetchTenants: () => dispatch(actions.fetchTenants()),
+    createTenant: (name, theme) => dispatch(actions.createTenant(name, theme))
   };
 };
 

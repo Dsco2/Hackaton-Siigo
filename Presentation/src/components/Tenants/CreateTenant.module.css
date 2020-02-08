@@ -2,10 +2,13 @@
   list-style-type: none;
   display: flex;
   justify-content: space-between;
-  height: 100%;
 }
 
 .ThemesList li {
   font-size: 2rem;
   float: left;
+}
+
+.Selected {
+  border: 2px solid red;
 }

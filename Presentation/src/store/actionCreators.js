@@ -1,1 +1,1 @@
-export { fetchTenants } from './actions/tenant';
+export { fetchTenants, createTenant } from "./actions/tenant";
