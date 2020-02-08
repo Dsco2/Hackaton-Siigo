@@ -30,16 +30,16 @@ namespace Business.Services
             return _productRepository.GetProductById(idProduct);
         }
 
-        public Product GetProductByTenant(int idTenant)
+        public List<Product> GetProductByTenant(int idTenant)
         {
             return _productRepository.GetProductByTenant(idTenant);
         }
 
-        public List<Product> SearchProduct(string query)
+        public List<Product> SearchProduct(int id, string query)
         {
-            var products = _productRepository.GetProductList();
+            var products = _productRepository.GetProductByTenant(id);
 
-            var stringList = query.Split('-').ToList();
+            var stringList = query.Split(' ').ToList();
 
             var productList = new List<Product>();
 

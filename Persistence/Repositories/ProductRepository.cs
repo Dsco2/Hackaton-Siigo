@@ -34,9 +34,9 @@ namespace Persistence.Repositories
                 .FirstOrDefault(x => x.IdProduct == idProduct);
         }
 
-        public Product GetProductByTenant(int idTenant)
+        public List<Product> GetProductByTenant(int idTenant)
         {
-            return _context.Products.FirstOrDefault(x => x.IdTenant == idTenant);
+            return _context.Products.Where(x => x.IdTenant == idTenant).ToList();
         }
     }
 }

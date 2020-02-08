@@ -8,6 +8,6 @@ namespace Business.Interfaces
         Product CreateProduct(Product product);
         List<Product> GetProductList();
         Product GetProductById(int idProduct);
-        Product GetProductByTenant(int idTenant);
+        List<Product> GetProductByTenant(int idTenant);
     }
 }

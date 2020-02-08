@@ -8,7 +8,7 @@ namespace Business.Interfaces
         Product CreateProduct(Product product);
         List<Product> GetProductList();
         Product GetProductById(int idProduct);
-        Product GetProductByTenant(int idTenant);
-        List<Product> SearchProduct(string productSearch);
+        List<Product> GetProductByTenant(int idTenant);
+        List<Product> SearchProduct(int id, string productSearch);
     }
 }

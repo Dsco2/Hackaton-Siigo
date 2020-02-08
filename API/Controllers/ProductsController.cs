@@ -1,4 +1,5 @@
-﻿using Business.Entities;
+﻿using API.Models;
+using Business.Entities;
 using Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,10 +64,10 @@ namespace API.Controllers
                 : (IActionResult) Ok(productResponse);
         }
 
-        [HttpGet("search-products/{productQuery}")]
-        public IActionResult SearchPrdoducts(string productQuery)
+        [HttpPost("search-products")]
+        public IActionResult SearchPrdoducts(SearchVm search)
         {
-            var productList = _productService.SearchProduct(productQuery);
+            var productList = _productService.SearchProduct(search.Id, search.query);
 
             return Ok(productList);
         }
