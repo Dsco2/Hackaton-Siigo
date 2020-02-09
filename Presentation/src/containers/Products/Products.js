@@ -37,7 +37,7 @@ class Products extends Component {
     event.preventDefault();
     debugger;
     let data = new FormData();
-    data.append("idTenant", 3);
+    data.append("idTenant", this.props.idTenant);
     data.append("file", this.state.file);
     axios
       .post("products/upload-file", data)
