@@ -1,8 +1,8 @@
 import * as actions from "../actionTypes";
 
 const initialState = {
-  customersList: [],
-  activeCustomer: {}
+  customersToSearch: [],
+  searchHistory: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,10 +15,11 @@ const reducer = (state = initialState, action) => {
 };
 
 const updateCustomers = (state, action) => {
-  return {
+  const temp = {
     ...state,
-    customersList: action.customersList
+    customersToSearch: action.customersList
   };
+  return temp;
 };
 
 export default reducer;

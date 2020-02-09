@@ -3,11 +3,11 @@ const CustomerCreate = ({ onSubmit, name, lastName }) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <label for="name">Nombre</label>
+        <label htmlFor="name">Nombre</label>
         <input type="text" className="form-control" id="name" value={name} />
       </div>
       <div className="form-group">
-        <label for="descripcion">Apellido</label>
+        <label htmlFor="descripcion">Apellido</label>
         <input
           type="text"
           className="form-control"

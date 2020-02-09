@@ -10,3 +10,9 @@ export {
   selectProduct,
   updateProducts
 } from "./actions/product";
+
+export {
+  fetchCustomers,
+  selectCustomer,
+  updateCustomers
+} from "./actions/customer";
