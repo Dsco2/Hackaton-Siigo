@@ -73,5 +73,17 @@ namespace Persistence.Repositories
 
             return _context.SaveChanges() > 0;
         }
+
+        public List<ProductVm> GetProductHistoryByTenant(int idTenant)
+        {
+            return _context.SearchProductHistories
+                .Where(x => x.Product.IdTenant == idTenant)
+                .Select(x => new ProductVm
+                {
+                    Name = x.Product.Name,
+                    IdProduct = x.IdProduct,
+                    AmountOfSearch = x.AmountOfSearch
+                }).ToList();
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Business.Interfaces
         List<Customer> GetCustomersList();
         List<CustomerVm> GetCustomerListByTenant(int idTenant);
         List<CustomerVm> SearchCustomer(int searchId, string searchQuery);
+        List<CustomerVm> GetCustomerHistoryByTenant(int idTenant);
     }
 }

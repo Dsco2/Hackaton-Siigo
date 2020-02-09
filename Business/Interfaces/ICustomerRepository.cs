@@ -13,5 +13,6 @@ namespace Business.Interfaces
         SearchCustomerHistory GetCustomerHistory(int idCustomer);
         bool UpdateSearchCustomerHistory(SearchCustomerHistory searchCustomerHistory);
         bool CreateSearchCustomerHistory(SearchCustomerHistory newHistory);
+        List<CustomerVm> GetProductByTenant(int idTenant);
     }
 }

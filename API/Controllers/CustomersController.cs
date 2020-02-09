@@ -75,9 +75,21 @@ namespace API.Controllers
         [HttpPost("search-customers")]
         public IActionResult SearchCustomers(SearchVm search)
         {
-            var customersList = _customerService.SearchCustomer(search.Id, search.query);
+            var customersList = _customerService.SearchCustomer(search.Id, search.Query);
 
             return Ok(customersList);
+        }
+
+        
+        //products/get-customer-history-by-tenant/3
+        [HttpGet("get-customer-history-by-tenant/{idTenant}")]
+        public IActionResult GetCustomerHistoryBytenant(int idTenant)
+        {
+            var customerResponse = _customerService.GetCustomerHistoryByTenant(idTenant);
+
+            return customerResponse == null
+                ? StatusCode(500)
+                : (IActionResult) Ok(customerResponse);
         }
     }
 }

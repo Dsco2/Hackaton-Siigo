@@ -92,19 +92,24 @@ namespace Business.Services
             return _productRepository.CreateProductList(fileProcess);
         }
 
-        private List<Product> ProcessFile(List<string[]> fileRead, int idTenant)
+        public List<ProductVm> GetProductHistoryByTenant(int idTenant)
+        {
+            return _productRepository.GetProductHistoryByTenant(idTenant);
+        }
+
+        private static List<Product> ProcessFile(List<string[]> fileRead, int idTenant)
         {            
             var fileResult = new List<Product>();
 
             foreach (var row in fileRead)
             {
-                int.TryParse(row[2], out var ListPrice);
+                int.TryParse(row[2], out var listPrice);
 
                 var rowFile = new Product
                 {
                     IdTenant = idTenant,
                     Name = row[0],
-                    ListPrice = ListPrice,
+                    ListPrice = listPrice,
                     Description = row[1]            
                 };
                 fileResult.Add(rowFile);
@@ -112,7 +117,7 @@ namespace Business.Services
             return fileResult;
         }
 
-        private List<string[]> ReadFile(IFormFile file)
+        private static List<string[]> ReadFile(IFormFile file)
         {
             var elements = new List<string[]>();
             using (var reader = new StreamReader(file.OpenReadStream()))

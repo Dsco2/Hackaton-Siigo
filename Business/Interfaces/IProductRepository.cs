@@ -14,5 +14,6 @@ namespace Business.Interfaces
         bool CreateSearchProductHistory(SearchProductHistory newHistory);
         bool UpdateSearchProductHistory(SearchProductHistory searchProductHistory);
         bool CreateProductList(List<Product> fileProcess);
+        List<ProductVm> GetProductHistoryByTenant(int idTenant);
     }
 }
