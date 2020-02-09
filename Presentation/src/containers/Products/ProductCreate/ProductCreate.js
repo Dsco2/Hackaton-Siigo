@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 class ProductCreate extends Component {
-
   state = {
     name: "",
     description: "",
@@ -16,20 +15,21 @@ class ProductCreate extends Component {
     this.setState({ description: e.target.value });
   };
 
-
   handlePriceChange = e => {
     this.setState({ price: e.target.value });
   };
 
-onClickCreateProduct = () => {
-    this.props.onCreateProduct(this.state.name, this.state.description, this.state.price);
-    
+  onClickCreateProduct = () => {
+    this.props.onCreateProduct(
+      this.state.name,
+      this.state.description,
+      this.state.price
+    );
   };
-
 
   render() {
     return (
-      <div>
+      <>
         <div className="form-group">
           <label for="name">Nombre</label>
           <input
@@ -39,7 +39,6 @@ onClickCreateProduct = () => {
             value={this.state.Name}
             onChange={this.handleNameChange}
           />
-
         </div>
         <div className="form-group">
           <label for="descripcion">Descripcion</label>
@@ -61,14 +60,10 @@ onClickCreateProduct = () => {
             onChange={this.handlePriceChange}
           />
         </div>
-        <button
-            className="btn btn-primary"
-            onClick={this.onClickCreateProduct}
-          >
-            Crear
-          </button>
-
-      </div>
+        <button className="btn btn-primary" onClick={this.onClickCreateProduct}>
+          Crear
+        </button>
+      </>
     );
   }
 }

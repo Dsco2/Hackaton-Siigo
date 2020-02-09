@@ -3,21 +3,20 @@ import TenantNavbar from "../../components/Navbar/TenantNavbar";
 import CustomerSearch from "./CustomerSearch/CustomerSearch";
 import Card from "../../components/UI/Card";
 import CustomerCreate from "./CustomerCreate/CustomerCreate";
-import CustomerList from "./CustomerList/CustomerList";
+// import CustomerList from "./CustomerList/CustomerList";
 import axios from "axios";
 import { connect } from "react-redux";
 
 class Customers extends Component {
-  state = {
-  };
+  state = {};
 
   handleCreateCustomer = (name, lastName) => {
+    let data = {
+      firstName: name,
+      lastName: lastName,
+      idtenant: this.props.idTenant
+    };
 
-    let data = {firstName: name,
-       lastName: lastName,
-        idtenant: this.props.idTenant}
-
-    console.log(data);
     axios
       .post("customers/createCustomer", data)
       .then(response => response)
@@ -41,22 +40,22 @@ class Customers extends Component {
             </div>
             <div className="col-12 col-md-6">
               <Card header="Creación">
-                <h5>
-                  Creación Manual
-                </h5>
-                {<CustomerCreate 
-                  onCreateCustomer={this.handleCreateCustomer}
-                 />}
+                <h5>Creación Manual</h5>
+                {
+                  <CustomerCreate
+                    onCreateCustomer={this.handleCreateCustomer}
+                  />
+                }
               </Card>
             </div>
           </div>
-          <div className="row mt-4">
+          {/* <div className="row mt-4">
             <div className="col-12">
               <Card header="Listado" title="Todos los clientes">
                 <CustomerList />
               </Card>
             </div>
-          </div>
+          </div> */}
         </div>
       </>
     );

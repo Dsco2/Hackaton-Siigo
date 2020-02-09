@@ -14,7 +14,7 @@ export const selectProduct = idProduct => {
   return dispatch => {
     return axios
       .get(`/Products/getProductsById/${idProduct}`)
-      .then(response => console.log(response))
+      .then(response => dispatch(updateActiveProduct(response.data)))
       .catch(error => console.log(error.response));
   };
 };
@@ -26,9 +26,9 @@ export const updateProducts = productsList => {
   };
 };
 
-// const updateProductsSearchHistory = searchHistory => {
-//   return {
-//     type: actions.UPDATE_PRODUCTS_SEARCH_HISTORY,
-//     searchHistory: searchHistory
-//   };
-// };
+const updateActiveProduct = product => {
+  return {
+    type: actions.UPDATE_ACTIVE_PRODUCT,
+    product: product
+  };
+};

@@ -56,8 +56,9 @@ class ProductSearch extends Component {
     });
   };
 
-  getSelectedProduct = idProduct => {
-    this.props.selectProduct(idProduct);
+  getSelectedProduct = async idProduct => {
+    await this.props.selectProduct(idProduct);
+    await this.props.onSelectProduct(idProduct);
   };
 
   render() {

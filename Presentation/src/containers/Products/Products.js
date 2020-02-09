@@ -5,28 +5,28 @@ import axios from "axios";
 import ProductSearch from "./ProductSearch/ProductSearch";
 import Card from "../../components/UI/Card";
 import ProductCreate from "./ProductCreate/ProductCreate";
-import ProductList from "./ProductList/ProductList";
 import { connect } from "react-redux";
+import ProductDetail from "./ProductDetail/ProductDetail";
 
 class Products extends Component {
   state = {
     file: {},
-    showProductCreate: false
+    showProductCreate: false,
+    showProductEdit: false
   };
 
   fileHandler = event => {
     this.setState({ file: event.target.files[0] });
   };
 
-  
   handleCreateProduct = (name, description, price) => {
-
     let data = {
       name: name,
       description: description,
       listPrice: price,
-      idtenant: this.props.idTenant}
-    console.log(data);
+      idtenant: this.props.idTenant
+    };
+
     axios
       .post("Products/createProduct", data)
       .then(response => response)
@@ -37,8 +37,8 @@ class Products extends Component {
     event.preventDefault();
     debugger;
     let data = new FormData();
-    data.append('idTenant', 3);
-    data.append('file', this.state.file);
+    data.append("idTenant", 3);
+    data.append("file", this.state.file);
     axios
       .post("products/upload-file", data)
       .then(response => response)
@@ -50,6 +50,10 @@ class Products extends Component {
     const updatedState = !this.state.showProductCreate;
 
     this.setState({ showProductCreate: updatedState });
+  };
+
+  handleSelectProduct = idProduct => {
+    this.setState({ showProductEdit: true });
   };
 
   render() {
@@ -67,7 +71,7 @@ class Products extends Component {
                   Se guardará el historial de búsquedas para realizar
                   sugerencias personalizadas.
                 </p>
-                <ProductSearch />
+                <ProductSearch onSelectProduct={this.handleSelectProduct} />
               </Card>
             </div>
             <div className="col-12 col-md-6">
@@ -88,19 +92,21 @@ class Products extends Component {
                     formulario
                   </button>
                 </h5>
-                {show && <ProductCreate 
-                 onCreateProduct={this.handleCreateProduct}
-                />}
+                {show && (
+                  <ProductCreate onCreateProduct={this.handleCreateProduct} />
+                )}
               </Card>
             </div>
           </div>
-          <div className="row mt-4">
-            <div className="col-12">
-              <Card header="Listado" title="Todos los productos">
-                <ProductList />
-              </Card>
+          {this.state.showProductEdit && (
+            <div className="row mt-4">
+              <div className="col-12">
+                <Card header="Edición" title="Editar producto">
+                  <ProductDetail product={this.props.activeProduct} />
+                </Card>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </>
     );
@@ -108,9 +114,9 @@ class Products extends Component {
 }
 const mapStateToProps = state => {
   return {
-    idTenant: state.tenant.activeTenant.idTenant
+    idTenant: state.tenant.activeTenant.idTenant,
+    activeProduct: state.product.activeProduct
   };
 };
 
 export default connect(mapStateToProps)(Products);
-
