@@ -66,8 +66,7 @@ namespace API.Controllers
         }
 
         [HttpPost("search-products")]
-        public IActionResult SearchProducts(SearchVm search)
-        {
+        public IActionResult SearchProducts(SearchVm search) {
             var productList = _productService.SearchProduct(search.Id, search.Query);
 
             return productList == null

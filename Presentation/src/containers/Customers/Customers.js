@@ -14,17 +14,6 @@ class Customers extends Component {
     debugger;
     console.log(event);
     
-    // event.preventDefault();
-
-    // if (this.props.restaurant.name && this.props.restaurant.adminEmail) {
-    //     await this.props.createRestaurant(this.props.restaurant);
-    //     this.setState({ show: true });
-    // } else {
-    //     this.setState({
-    //         show: true,
-    //         error: 'Todos los campos son obligatorios'
-    //     });
-    // }
   };
 
   render() {

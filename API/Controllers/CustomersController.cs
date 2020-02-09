@@ -77,10 +77,11 @@ namespace API.Controllers
         {
             var customersList = _customerService.SearchCustomer(search.Id, search.Query);
 
-            return Ok(customersList);
+            return customersList == null
+                ? StatusCode(500)
+                : (IActionResult) Ok(customersList);
         }
 
-        
         //products/get-customer-history-by-tenant/3
         [HttpGet("get-customer-history-by-tenant/{idTenant}")]
         public IActionResult GetCustomerHistoryBytenant(int idTenant)

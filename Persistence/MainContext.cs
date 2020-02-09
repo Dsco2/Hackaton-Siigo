@@ -34,6 +34,7 @@ namespace Persistence
             base.OnModelCreating(modelBuilder);
             modelBuilder.Tenant();
             modelBuilder.Product();
+            modelBuilder.Customer();
         }
     }
 }
