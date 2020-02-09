@@ -40,7 +40,7 @@ class ProductSearch extends Component {
     return inputLength === 0
       ? []
       : this.props.products.filter(prod =>
-          prod.name.toLowerCase().includes(inputValue)
+          prod.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(inputValue)
         );
   };
 
