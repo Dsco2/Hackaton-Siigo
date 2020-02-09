@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../store/actionCreators";
 
 class Navbar extends Component {
+  state = {
+    activePage: ""
+  };
+
+  componentDidMount() {
+    if (this.props.location) {
+      this.setState({ activePage: this.props.location.pathname });
+    }
+  }
+
   render() {
     return (
       <nav
@@ -26,17 +36,29 @@ class Navbar extends Component {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li
+              className={`nav-item ${
+                this.state.activePage === "/active-tenant" ? "active" : ""
+              }`}
+            >
               <Link className="nav-link" to="/">
                 Inicio
               </Link>
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${
+                this.state.activePage === "/products" ? "active" : ""
+              }`}
+            >
               <Link className="nav-link" to="/products">
                 Productos
               </Link>
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${
+                this.state.activePage === "/customers" ? "active" : ""
+              }`}
+            >
               <Link className="nav-link" to="/customers">
                 Clientes
               </Link>
@@ -66,4 +88,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navbar));
