@@ -10,9 +10,25 @@ export const fetchProducts = idTenant => {
   };
 };
 
+export const selectProduct = idProduct => {
+  return dispatch => {
+    return axios
+      .get(`/Products/getProductsById/${idProduct}`)
+      .then(response => console.log(response))
+      .catch(error => console.log(error.response));
+  };
+};
+
 export const updateProducts = productsList => {
   return {
     type: actions.UPDATE_PRODUCTS,
     productsList: productsList
   };
 };
+
+// const updateProductsSearchHistory = searchHistory => {
+//   return {
+//     type: actions.UPDATE_PRODUCTS_SEARCH_HISTORY,
+//     searchHistory: searchHistory
+//   };
+// };

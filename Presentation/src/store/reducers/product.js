@@ -1,7 +1,8 @@
 import * as actions from "../actionTypes";
 
 const initialState = {
-  productsToSearch: []
+  productsToSearch: [],
+  searchHistory: []
 };
 
 const reducer = (state = initialState, action) => {

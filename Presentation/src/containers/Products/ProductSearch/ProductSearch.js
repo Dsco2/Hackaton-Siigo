@@ -56,10 +56,18 @@ class ProductSearch extends Component {
     });
   };
 
+  getSelectedProduct = idProduct => {
+    this.props.selectProduct(idProduct);
+  };
+
   render() {
     const getSuggestionValue = suggestion => suggestion.name;
 
-    const renderSuggestion = suggestion => <div>{suggestion.name}</div>;
+    const renderSuggestion = suggestion => (
+      <div onClick={() => this.getSelectedProduct(suggestion.idProduct)}>
+        {suggestion.name}
+      </div>
+    );
     const { value, suggestions } = this.state;
 
     const inputProps = {
@@ -91,6 +99,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: idTenant => dispatch(actions.fetchProducts(idTenant)),
+    selectProduct: idProduct => dispatch(actions.selectProduct(idProduct)),
     updateProducts: productList => dispatch(actions.updateProducts(productList))
   };
 };

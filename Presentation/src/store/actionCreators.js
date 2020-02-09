@@ -5,4 +5,8 @@ export {
   logout
 } from "./actions/tenant";
 
-export { fetchProducts, updateProducts } from "./actions/product";
+export {
+  fetchProducts,
+  selectProduct,
+  updateProducts
+} from "./actions/product";
