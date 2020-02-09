@@ -1,9 +1,12 @@
 import * as actions from "../actionTypes";
+import { bindActionCreators } from "redux";
 
 const initialState = {
   productsToSearch: [],
   searchHistory: [],
-  activeProduct: {}
+  activeProduct: {},
+  successMessage: "",
+  errorMessage : ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +15,8 @@ const reducer = (state = initialState, action) => {
       return updateProducts(state, action);
       case actions.UPDATE_ACTIVE_PRODUCT:
         return updateActiveProduct(state, action);
+        case actions.UPDATE_SUCCESS_MESSAGE:
+          return updateSuccessMessage(state, action)
     default:
       return state;
   }
@@ -29,6 +34,14 @@ const updateActiveProduct = (state, action) => {
   return {
     ...state,
     activeProduct: action.product
+  }
+}
+
+const updateSuccessMessage = (state, action) => {
+  debugger;
+  return {
+    ...state,
+    successMessage: action.success 
   }
 }
 

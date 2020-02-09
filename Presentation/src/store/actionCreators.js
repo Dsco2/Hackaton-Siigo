@@ -8,7 +8,8 @@ export {
 export {
   fetchProducts,
   selectProduct,
-  updateProducts
+  updateProducts,
+  updateSuccessMessage
 } from "./actions/product";
 
 export {

@@ -7,6 +7,7 @@ import Card from "../../components/UI/Card";
 import ProductCreate from "./ProductCreate/ProductCreate";
 import { connect } from "react-redux";
 import ProductDetail from "./ProductDetail/ProductDetail";
+import * as actions from "../../store/actionCreators";
 
 class Products extends Component {
   state = {
@@ -41,14 +42,12 @@ class Products extends Component {
     data.append("file", this.state.file);
     axios
       .post("products/upload-file", data)
-      .then(response => response)
-      .catch(error => error);
+      .then(response => this.props.updateSuccessMessage("Se han agregado los datos exitosamente"))
+      .catch(error => console.log(error));
   };
 
   onClickProdCreateToggle = () => {
-    debugger;
     const updatedState = !this.state.showProductCreate;
-
     this.setState({ showProductCreate: updatedState });
   };
 
@@ -81,6 +80,10 @@ class Products extends Component {
                   onUpload={this.onUploadHandler}
                   loading={false}
                 />
+                {this.props.successUpload && (
+                  <div className="alert alert-success">
+                  {this.props.successUpload}
+                </div>)}
                 <hr />
                 <h5>
                   Creación Manual
@@ -115,8 +118,16 @@ class Products extends Component {
 const mapStateToProps = state => {
   return {
     idTenant: state.tenant.activeTenant.idTenant,
-    activeProduct: state.product.activeProduct
+    activeProduct: state.product.activeProduct,
+    successUpload: state.product.successMessage
   };
 };
 
-export default connect(mapStateToProps)(Products);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateSuccessMessage: message => dispatch(actions.updateSuccessMessage(message))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

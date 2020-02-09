@@ -19,6 +19,15 @@ export const selectProduct = idProduct => {
   };
 };
 
+export const updateSuccessMessage = message => {
+  return {
+    type: actions.UPDATE_SUCCESS_MESSAGE,
+    success: message
+  };
+};
+
+
+
 export const updateProducts = productsList => {
   return {
     type: actions.UPDATE_PRODUCTS,
