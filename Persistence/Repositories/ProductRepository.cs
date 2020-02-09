@@ -66,5 +66,12 @@ namespace Persistence.Repositories
 
             return _context.SaveChanges()>0;
         }
+
+        public bool CreateProductList(List<Product> fileProcess)
+        {
+            _context.Products.AddRange(fileProcess);
+
+            return _context.SaveChanges() > 0;
+        }
     }
 }

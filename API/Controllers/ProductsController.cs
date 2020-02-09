@@ -76,9 +76,9 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("upload-file")]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadFile([FromForm] DataFileVm data)
         {
-            
+            var saveFile = _productService.SaveFile(data.IdTenant, data.file);   
             return Ok();
         }
     }

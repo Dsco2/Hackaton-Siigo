@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using Business.Entities;
 using Business.Interfaces;
 using Business.Models;
 using Business.Utilities;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Services
 {
@@ -80,6 +84,61 @@ namespace Business.Services
             }
 
             return productList;
+        }
+
+        public bool SaveFile(int idTenant, IFormFile file)
+        {
+            var fileRead = ReadFile(file);
+            var fileProcess = ProcessFile(fileRead, idTenant);
+
+            return _productRepository.CreateProductList(fileProcess);
+        }
+
+        private List<Product> ProcessFile(List<string[]> fileRead, int idTenant)
+        {            
+            var fileResult = new List<Product>();
+
+            foreach (var row in fileRead)
+            {
+                int.TryParse(row[2], out var ListPrice);
+
+                var rowFile = new Product
+                {
+                    IdTenant = idTenant,
+                    Name = row[0],
+                    ListPrice = ListPrice,
+                    Description = row[1]            
+                };
+                fileResult.Add(rowFile);
+            }
+            return fileResult;
+        }
+
+        private List<string[]> ReadFile(IFormFile file)
+        {
+            var elements = new List<string[]>();
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                var rows = new List<string>();
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    if (line == null) continue;
+                    var values = line.Split('\n');
+                    rows.AddRange(values);
+                }
+
+                rows.RemoveAt(0);
+
+                foreach (var values in rows)
+                {
+                    var data = values.Split(",");
+                    elements.Add(data);
+                }
+
+                return elements;
+            }
         }
     }
 }

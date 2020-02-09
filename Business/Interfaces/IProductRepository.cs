@@ -13,5 +13,6 @@ namespace Business.Interfaces
         SearchProductHistory GetProductHistory(int idProduct);
         bool CreateSearchProductHistory(SearchProductHistory newHistory);
         bool UpdateSearchProductHistory(SearchProductHistory searchProductHistory);
+        bool CreateProductList(List<Product> fileProcess);
     }
 }
