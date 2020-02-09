@@ -5,3 +5,6 @@ export const SET_ACTIVE_TENANT = "SET_ACTIVE_TENANT";
 
 // Customer actions
 export const UPDATE_CUSTOMERS = "UPDATE_CUSTOMERS";
+
+// Product actions
+export const UPDATE_PRODUCTS = "UPDATE_PRODUCTS";

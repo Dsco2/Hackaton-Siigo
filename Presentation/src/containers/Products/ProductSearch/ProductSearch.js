@@ -1,40 +1,46 @@
 import React, { Component } from "react";
 import Autosuggest from "react-autosuggest";
 import "./ProductSearch.css";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actionCreators";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
+import axios from "axios";
 
 class ProductSearch extends Component {
   state = {
     value: "",
-    languages: [
-      {
-        name: "C",
-        year: 1972
-      },
-      {
-        name: "Clojure",
-        year: 1972
-      },
-      {
-        name: "Elm",
-        year: 2012
-      }
-    ],
     suggestions: []
   };
 
-  onChangeAutosuggest = (e, { newValue }) => {
-    this.setState({ value: newValue });
+  componentDidMount() {
+    const activeTenantId = this.props.idTenant;
+    this.props.fetchProducts(activeTenantId);
+  }
+
+  onChangeAutosuggest = async (_, { newValue }) => {
+    // This updates the input value of the search input
+    await this.setState({ value: newValue });
+
+    // We update the suggestions to get data in real time, using debouncing to avoid flooding the API with requests after every keystroke
+    const activeTenantId = this.props.idTenant;
+    const searchAPI = data => axios.post("/Products/search-products", data);
+    const searchProductsDebounced = AwesomeDebouncePromise(searchAPI, 500);
+    const data = { id: activeTenantId, query: newValue };
+    const result = await searchProductsDebounced(data);
+    if (result.status === 200) {
+      this.props.updateProducts(result.data);
+    }
   };
 
-  // Teach Autosuggest how to calculate suggestions for any given input value.
+  // Get in suggestions all strings that include the input
   getSuggestions = value => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0
       ? []
-      : this.state.languages.filter(
-          lang => lang.name.toLowerCase().slice(0, inputLength) === inputValue
+      : this.props.products.filter(prod =>
+          prod.name.toLowerCase().includes(inputValue)
         );
   };
 
@@ -44,21 +50,15 @@ class ProductSearch extends Component {
     });
   };
 
-  // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested = () => {
     this.setState({
       suggestions: []
     });
   };
-  render() {
-    // Imagine you have a list of languages that you'd like to autosuggest.
 
-    // When suggestion is clicked, Autosuggest needs to populate the input
-    // based on the clicked suggestion. Teach Autosuggest how to calculate the
-    // input value for every given suggestion.
+  render() {
     const getSuggestionValue = suggestion => suggestion.name;
 
-    // Use your imagination to render suggestions.
     const renderSuggestion = suggestion => <div>{suggestion.name}</div>;
     const { value, suggestions } = this.state;
 
@@ -81,4 +81,18 @@ class ProductSearch extends Component {
   }
 }
 
-export default ProductSearch;
+const mapStateToProps = state => {
+  return {
+    idTenant: state.tenant.activeTenant.idTenant,
+    products: state.product.productsToSearch
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProducts: idTenant => dispatch(actions.fetchProducts(idTenant)),
+    updateProducts: productList => dispatch(actions.updateProducts(productList))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductSearch);

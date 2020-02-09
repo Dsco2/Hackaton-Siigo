@@ -7,6 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import tenant from "./store/reducers/tenant";
 import customer from "./store/reducers/customer";
+import product from "./store/reducers/product";
 import axios from "axios";
 
 const apiUrl =
@@ -17,7 +18,8 @@ axios.defaults.baseURL = apiUrl;
 
 const reducer = combineReducers({
   tenant,
-  customer
+  customer,
+  product
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));
