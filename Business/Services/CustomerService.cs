@@ -82,5 +82,10 @@ namespace Business.Services
 
             return customerList;
         }
+
+        public List<CustomerVm> GetCustomerHistoryByTenant(int idTenant)
+        {
+            return _customerRepository.GetProductByTenant(idTenant);
+        }
     }
 }

@@ -67,5 +67,18 @@ namespace Persistence.Repositories
             _context.SearchCustomerHistories.Add(newHistory);
             return _context.SaveChanges() > 0;
         }
+
+        public List<CustomerVm> GetProductByTenant(int idTenant)
+        {
+            return _context.SearchCustomerHistories
+                .Where(x => x.Customer.IdTenant == idTenant)
+                .Select(x => new CustomerVm
+                {
+                    FirstName = x.Customer.FirstName,
+                    LastName = x.Customer.LastName,
+                    IdCustomer = x.IdCustomer,
+                    AmountOfSearch = x.AmountOfSearch
+                }).ToList();
+        }
     }
 }

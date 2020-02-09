@@ -13,5 +13,6 @@ namespace Business.Interfaces
         List<ProductVm> GetProductByTenant(int idTenant);
         List<ProductVm> SearchProduct(int id, string productSearch);
         bool SaveFile(int idTenant, IFormFile file);
+        List<ProductVm> GetProductHistoryByTenant(int idTenant);
     }
 }

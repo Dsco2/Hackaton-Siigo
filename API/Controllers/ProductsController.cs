@@ -2,7 +2,6 @@
 using API.Models;
 using Business.Entities;
 using Business.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -69,17 +68,32 @@ namespace API.Controllers
         [HttpPost("search-products")]
         public IActionResult SearchProducts(SearchVm search)
         {
-            var productList = _productService.SearchProduct(search.Id, search.query);
+            var productList = _productService.SearchProduct(search.Id, search.Query);
 
-            return Ok(productList);
+            return productList == null
+                ? StatusCode(500)
+                : (IActionResult) Ok(productList);
         }
 
         [HttpPost]
         [Route("upload-file")]
         public async Task<IActionResult> UploadFile([FromForm] DataFileVm data)
         {
-            var saveFile = _productService.SaveFile(data.IdTenant, data.file);   
-            return Ok();
+            var saveFile = _productService.SaveFile(data.IdTenant, data.File);   
+            return !saveFile
+                ? StatusCode(500)
+                : Ok();
+        }
+
+        //products/get-products-history-by-tenant/3
+        [HttpGet("get-products-history-by-tenant/{idTenant}")]
+        public IActionResult GetProductHistoryBytenant(int idTenant)
+        {
+            var productResponse = _productService.GetProductHistoryByTenant(idTenant);
+
+            return productResponse == null
+                ? StatusCode(500)
+                : (IActionResult) Ok(productResponse);
         }
     }
 }
