@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using Business.Entities;
+using Business.Models;
 
 namespace Business.Interfaces
 {
     public interface ICustomerRepository
     {
         Customer AddCustomer(Customer customer);
-        Customer GetCustomer(int idCustomer);
+        Customer GetCustomerById(int idCustomer);
         List<Customer> GetCustomerList();
-        List<Customer> GetCustomerListByTenant(int idTenant);
+        List<CustomerVm> GetCustomerListByTenant(int idTenant);
+        SearchCustomerHistory GetCustomerHistory(int idCustomer);
+        bool UpdateSearchCustomerHistory(SearchCustomerHistory searchCustomerHistory);
+        bool CreateSearchCustomerHistory(SearchCustomerHistory newHistory);
     }
 }

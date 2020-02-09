@@ -20,10 +20,9 @@ class Products extends Component {
   onUploadHandler = event => {
     event.preventDefault();
     debugger;
-    const data = {
-      idTenant: 3,
-      file: this.state.file
-    };
+    let data = new FormData();
+    data.append('idTenant', 3);
+    data.append('file', this.state.file);
     axios
       .post("products/upload-file", data)
       .then(response => response)

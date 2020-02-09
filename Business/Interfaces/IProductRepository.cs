@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Business.Entities;
+using Business.Models;
 
 namespace Business.Interfaces
 {
@@ -8,6 +9,10 @@ namespace Business.Interfaces
         Product CreateProduct(Product product);
         List<Product> GetProductList();
         Product GetProductById(int idProduct);
-        List<Product> GetProductByTenant(int idTenant);
+        List<ProductVm> GetProductByTenant(int idTenant);
+        SearchProductHistory GetProductHistory(int idProduct);
+        bool CreateSearchProductHistory(SearchProductHistory newHistory);
+        bool UpdateSearchProductHistory(SearchProductHistory searchProductHistory);
+        bool CreateProductList(List<Product> fileProcess);
     }
 }

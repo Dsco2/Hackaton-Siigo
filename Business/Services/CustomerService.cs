@@ -2,6 +2,7 @@
 using System.Linq;
 using Business.Entities;
 using Business.Interfaces;
+using Business.Models;
 using Business.Utilities;
 
 namespace Business.Services
@@ -25,23 +26,45 @@ namespace Business.Services
             return _customerRepository.GetCustomerList();
         }
 
-        public List<Customer> GetCustomerListByTenant(int idTenant)
+        public List<CustomerVm> GetCustomerListByTenant(int idTenant)
         {
             return _customerRepository.GetCustomerListByTenant(idTenant);
         }
 
-        public Customer GetCustomer(int idCustomer)
+        public Customer GetCustomerById(int idCustomer)
         {
-            return _customerRepository.GetCustomer(idCustomer);
+            var customer = _customerRepository.GetCustomerById(idCustomer);
+            UpdateCustomerHistory(idCustomer);
+            return customer;
         }
 
-        public List<Customer> SearchCustomer(int id, string query)
+        private void UpdateCustomerHistory(int idCustomer)
+        {
+            var searchCustomerHistory = _customerRepository.GetCustomerHistory(idCustomer);
+            if (searchCustomerHistory != null)
+            {
+                searchCustomerHistory.AmountOfSearch++;
+                _customerRepository.UpdateSearchCustomerHistory(searchCustomerHistory);
+            }
+            else
+            {
+                var newHistory = new SearchCustomerHistory
+                {
+                    AmountOfSearch = 1,
+                    IdCustomer = idCustomer
+                };
+
+                _customerRepository.CreateSearchCustomerHistory(newHistory);
+            }
+        }
+
+        public List<CustomerVm> SearchCustomer(int id, string query)
         {
             var customers = _customerRepository.GetCustomerListByTenant(id);
 
             var stringList = query.Split(' ').ToList();
 
-            var customerList = new List<Customer>();
+            var customerList = new List<CustomerVm>();
 
             foreach(var queryString in stringList)
             {
@@ -54,7 +77,7 @@ namespace Business.Services
                     customerList = result;    
                 }
 
-                customerList = customerList.Intersect(result).ToList();
+                customerList = customerList.Intersect(result).OrderByDescending(x => x.AmountOfSearch).ToList();
             }
 
             return customerList;

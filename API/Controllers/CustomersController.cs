@@ -16,15 +16,15 @@ namespace API.Controllers
             _customerService = customerService;
         }
 
-        //customers/GetCustomer/1
-        [HttpGet("GetCustomer/{idCustomer}")]
+        //customers/GetCustomerById/1
+        [HttpGet("GetCustomerById/{idCustomer}")]
         public IActionResult GetCustomer(int idCustomer)
         {
             if (idCustomer<1)
             {
                 return BadRequest();
             }
-            var customerResponse = _customerService.GetCustomer(idCustomer);
+            var customerResponse = _customerService.GetCustomerById(idCustomer);
             return customerResponse == null
                 ?StatusCode(500)
                 :(IActionResult)Ok(customerResponse);
