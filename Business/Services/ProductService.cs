@@ -97,6 +97,11 @@ namespace Business.Services
             return _productRepository.GetProductHistoryByTenant(idTenant);
         }
 
+        public bool UpdateProduct(Product product)
+        {
+            return _productRepository.UpdateProduct(product);
+        }
+
         private static List<Product> ProcessFile(List<string[]> fileRead, int idTenant)
         {            
             var fileResult = new List<Product>();

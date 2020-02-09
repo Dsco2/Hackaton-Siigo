@@ -41,8 +41,8 @@ class CustomerSearch extends Component {
       ? []
       : this.props.customers.filter(
           custo =>
-            custo.firstName.toLowerCase().includes(inputValue) ||
-            custo.lastName.toLowerCase().includes(inputValue)
+            custo.firstName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(inputValue) ||
+            custo.lastName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(inputValue)
         );
   };
 

@@ -87,5 +87,10 @@ namespace Business.Services
         {
             return _customerRepository.GetProductByTenant(idTenant);
         }
+
+        public bool UpdateCustomer(Customer customer)
+        {
+            return _customerRepository.UpdateCustomer(customer);
+        }
     }
 }

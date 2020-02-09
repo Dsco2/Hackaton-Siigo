@@ -14,5 +14,6 @@ namespace Business.Interfaces
         List<ProductVm> SearchProduct(int id, string productSearch);
         bool SaveFile(int idTenant, IFormFile file);
         List<ProductVm> GetProductHistoryByTenant(int idTenant);
+        bool UpdateProduct(Product product);
     }
 }
