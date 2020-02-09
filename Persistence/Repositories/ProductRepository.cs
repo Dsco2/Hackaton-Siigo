@@ -85,5 +85,11 @@ namespace Persistence.Repositories
                     AmountOfSearch = x.AmountOfSearch
                 }).ToList();
         }
+
+        public bool UpdateProduct(Product product)
+        {
+            _context.Products.Update(product);
+            return _context.SaveChanges() > 0;
+        }
     }
 }

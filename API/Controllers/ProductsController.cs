@@ -94,5 +94,21 @@ namespace API.Controllers
                 ? StatusCode(500)
                 : (IActionResult) Ok(productResponse);
         }
+
+        //products/update-product
+        [HttpPost("update-product")]
+        public IActionResult UpdateProduct(Product product)
+        {
+            if (product == null)
+            {
+                return BadRequest();
+            }
+
+            var updateProduct = _productService.UpdateProduct(product);
+
+            return !updateProduct
+                ? StatusCode(500)
+                : Ok();
+        }
     }
 }
