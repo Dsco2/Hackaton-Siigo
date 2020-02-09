@@ -159,19 +159,36 @@ namespace Persistence.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Business.Entities.SearchHistory", b =>
+            modelBuilder.Entity("Business.Entities.SearchCustomerHistory", b =>
                 {
-                    b.Property<int>("IdSearchHistory")
+                    b.Property<int>("IdSearchCustomerHistory")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AmountOfSearch");
+
                     b.Property<int>("IdCustomer");
+
+                    b.HasKey("IdSearchCustomerHistory");
+
+                    b.HasIndex("IdCustomer");
+
+                    b.ToTable("search_customer_history");
+                });
+
+            modelBuilder.Entity("Business.Entities.SearchProductHistory", b =>
+                {
+                    b.Property<int>("IdSearchProductHistory")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AmountOfSearch");
 
                     b.Property<int>("IdProduct");
 
-                    b.Property<string>("QuantitySearch");
+                    b.HasKey("IdSearchProductHistory");
 
-                    b.HasKey("IdSearchHistory");
+                    b.HasIndex("IdProduct");
 
                     b.ToTable("search_history");
                 });
@@ -236,6 +253,22 @@ namespace Persistence.Migrations
                     b.HasOne("Business.Entities.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("IdTenant")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Business.Entities.SearchCustomerHistory", b =>
+                {
+                    b.HasOne("Business.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("IdCustomer")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Business.Entities.SearchProductHistory", b =>
+                {
+                    b.HasOne("Business.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

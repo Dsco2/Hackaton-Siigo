@@ -2,6 +2,7 @@
 using System.Linq;
 using Business.Entities;
 using Business.Interfaces;
+using Business.Models;
 
 namespace Persistence.Repositories
 {
@@ -34,9 +35,36 @@ namespace Persistence.Repositories
                 .FirstOrDefault(x => x.IdProduct == idProduct);
         }
 
-        public List<Product> GetProductByTenant(int idTenant)
+        public List<ProductVm> GetProductByTenant(int idTenant)
         {
-            return _context.Products.Where(x => x.IdTenant == idTenant).ToList();
+            return _context.Products
+                .Where(x => x.IdTenant == idTenant)
+                .Select(x => new ProductVm
+                {
+                    IdProduct = x.IdProduct,
+                    Name = x.Name,
+                    AmountOfSearch = _context.SearchProductHistories.Where(y => y.IdProduct == x.IdProduct).Select(w => w.AmountOfSearch).FirstOrDefault()
+                })
+                .ToList();
+        }
+
+        public SearchProductHistory GetProductHistory(int idProduct)
+        {
+            return _context.SearchProductHistories.FirstOrDefault(x => x.IdProduct == idProduct);
+        }
+
+        public bool CreateSearchProductHistory(SearchProductHistory newHistory)
+        {
+            _context.SearchProductHistories.Add(newHistory);
+            return _context.SaveChanges() > 0;
+
+        }
+
+        public bool UpdateSearchProductHistory(SearchProductHistory searchProductHistory)
+        {
+            _context.SearchProductHistories.Update(searchProductHistory);
+
+            return _context.SaveChanges()>0;
         }
     }
 }

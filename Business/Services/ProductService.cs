@@ -2,6 +2,7 @@
 using System.Linq;
 using Business.Entities;
 using Business.Interfaces;
+using Business.Models;
 using Business.Utilities;
 
 namespace Business.Services
@@ -27,21 +28,43 @@ namespace Business.Services
 
         public Product GetProductById(int idProduct)
         {
-            return _productRepository.GetProductById(idProduct);
+            var product = _productRepository.GetProductById(idProduct);
+            UpdateProductHistory(idProduct);
+            return product;
         }
 
-        public List<Product> GetProductByTenant(int idTenant)
+        private void UpdateProductHistory(int idProduct)
+        {
+            var searchProductHistory = _productRepository.GetProductHistory(idProduct);
+            if (searchProductHistory != null)
+            {
+                searchProductHistory.AmountOfSearch++;
+                _productRepository.UpdateSearchProductHistory(searchProductHistory);
+            }
+            else
+            {
+                var newHistory = new SearchProductHistory
+                {
+                    AmountOfSearch = 1,
+                    IdProduct = idProduct
+                };
+
+                _productRepository.CreateSearchProductHistory(newHistory);
+            }
+        }
+
+        public List<ProductVm> GetProductByTenant(int idTenant)
         {
             return _productRepository.GetProductByTenant(idTenant);
         }
 
-        public List<Product> SearchProduct(int id, string query)
+        public List<ProductVm> SearchProduct(int id, string query)
         {
             var products = _productRepository.GetProductByTenant(id);
 
             var stringList = query.Split(' ').ToList();
 
-            var productList = new List<Product>();
+            var productList = new List<ProductVm>();
 
             foreach(var queryString in stringList)
             {
@@ -53,7 +76,7 @@ namespace Business.Services
                     productList = result;    
                 }
 
-                productList = productList.Intersect(result).ToList();
+                productList = productList.Intersect(result).OrderByDescending(x => x.AmountOfSearch).ToList();
             }
 
             return productList;

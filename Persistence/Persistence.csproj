@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200208193939_AddProductossAndTenantSeeds.Designer.cs" />
     <Compile Remove="Migrations\20200208200225_UpdateProductossAndTenantSeeds.cs" />
     <Compile Remove="Migrations\20200208200225_UpdateProductossAndTenantSeeds.Designer.cs" />
+    <Compile Remove="Migrations\20200209030154_AddTablesSearchHistory.cs" />
+    <Compile Remove="Migrations\20200209030154_AddTablesSearchHistory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
