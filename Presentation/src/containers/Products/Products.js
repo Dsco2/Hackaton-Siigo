@@ -6,6 +6,7 @@ import ProductSearch from "./ProductSearch/ProductSearch";
 import Card from "../../components/UI/Card";
 import ProductCreate from "./ProductCreate/ProductCreate";
 import ProductList from "./ProductList/ProductList";
+import { connect } from "react-redux";
 
 class Products extends Component {
   state = {
@@ -15,6 +16,21 @@ class Products extends Component {
 
   fileHandler = event => {
     this.setState({ file: event.target.files[0] });
+  };
+
+  
+  handleCreateProduct = (name, description, price) => {
+
+    let data = {
+      name: name,
+      description: description,
+      listPrice: price,
+      idtenant: this.props.idTenant}
+    console.log(data);
+    axios
+      .post("Products/createProduct", data)
+      .then(response => response)
+      .catch(error => error);
   };
 
   onUploadHandler = event => {
@@ -72,7 +88,9 @@ class Products extends Component {
                     formulario
                   </button>
                 </h5>
-                {show && <ProductCreate />}
+                {show && <ProductCreate 
+                 onCreateProduct={this.handleCreateProduct}
+                />}
               </Card>
             </div>
           </div>
@@ -88,5 +106,11 @@ class Products extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    idTenant: state.tenant.activeTenant.idTenant
+  };
+};
 
-export default Products;
+export default connect(mapStateToProps)(Products);
+

@@ -4,18 +4,25 @@ import CustomerSearch from "./CustomerSearch/CustomerSearch";
 import Card from "../../components/UI/Card";
 import CustomerCreate from "./CustomerCreate/CustomerCreate";
 import CustomerList from "./CustomerList/CustomerList";
-
+import axios from "axios";
+import { connect } from "react-redux";
 
 class Customers extends Component {
   state = {
   };
 
-  onSubmitHandler = async event => {
-    debugger;
-    console.log(event);
-    
-  };
+  handleCreateCustomer = (name, lastName) => {
 
+    let data = {firstName: name,
+       lastName: lastName,
+        idtenant: this.props.idTenant}
+
+    console.log(data);
+    axios
+      .post("customers/createCustomer", data)
+      .then(response => response)
+      .catch(error => error);
+  };
   render() {
     return (
       <>
@@ -38,8 +45,8 @@ class Customers extends Component {
                   Creación Manual
                 </h5>
                 {<CustomerCreate 
-                onSubmit={this.onSubmitHandler}
-                />}
+                  onCreateCustomer={this.handleCreateCustomer}
+                 />}
               </Card>
             </div>
           </div>
@@ -56,5 +63,10 @@ class Customers extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    idTenant: state.tenant.activeTenant.idTenant
+  };
+};
 
-export default Customers;
+export default connect(mapStateToProps)(Customers);

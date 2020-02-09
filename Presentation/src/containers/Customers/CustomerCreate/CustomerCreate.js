@@ -1,23 +1,57 @@
-import React from "react";
-const CustomerCreate = ({ onSubmit, name, lastName }) => {
-  return (
-    <form onSubmit={onSubmit}>
-      <div className="form-group">
-        <label htmlFor="name">Nombre</label>
-        <input type="text" className="form-control" id="name" value={name} />
-      </div>
-      <div className="form-group">
-        <label htmlFor="descripcion">Apellido</label>
-        <input
-          type="text"
-          className="form-control"
-          id="descripcion"
-          value={lastName}
-        />
-      </div>
-      <button className="btn btn-primary">Ingresar Cliente</button>
-    </form>
-  );
-};
+import React, { Component } from "react";
 
-export default CustomerCreate;
+class CostumerCreate extends Component {
+
+    state = {
+        name: "",
+        lastName: ""
+      };
+    
+      handleNameChange = e => {
+        this.setState({ name: e.target.value });
+      };
+
+      handleLastNameChange = e => {
+        this.setState({ lastName: e.target.value });
+      };
+
+    onClickCreateCustomer = () => {
+        this.props.onCreateCustomer(this.state.name, this.state.lastName);
+        
+      };
+
+  render() {
+    return (
+      <div>
+        <div className="form-group">
+          <label for="name">Nombre</label>
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            value={this.state.name}
+            onChange={this.handleNameChange}
+          />
+        </div>
+        <div className="form-group">
+          <label for="descripcion">Apellido</label>
+          <input
+            type="text"
+            className="form-control"
+            id="description"
+            value={this.state.lastName}
+            onChange={this.handleLastNameChange}
+          />
+        </div>
+        <button
+            className="btn btn-primary"
+            onClick={this.onClickCreateCustomer}
+          >
+            Crear
+          </button>
+      </div>
+    );
+  }
+}
+
+export default CostumerCreate;
