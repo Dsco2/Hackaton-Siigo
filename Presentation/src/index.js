@@ -9,13 +9,11 @@ import tenant from "./store/reducers/tenant";
 import customer from "./store/reducers/customer";
 import axios from "axios";
 
-console.log("current environment: " + process.env.NODE_ENV);
 const apiUrl =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_PROD_API_URL
     : process.env.REACT_APP_DEV_API_URL;
 axios.defaults.baseURL = apiUrl;
-console.log("current api url: " + apiUrl);
 
 const reducer = combineReducers({
   tenant,

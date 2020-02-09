@@ -10,6 +10,7 @@ namespace Persistence
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Hackathon");
+        //=> optionsBuilder.UseSqlServer("Server=hackaton.****.amazonaws.com,1433;Database=****;User Id=****;Password=****");
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product> Products { get; set; }
