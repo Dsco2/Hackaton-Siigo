@@ -37,7 +37,7 @@ namespace API
                     {
                         Name = "Spiders Team",
                         Email = "ing-cantor@hotmail.com",
-                        Url = "https://tbd.com"
+                        Url = "https://www.linkedin.com/in/daniel-santiago-cantor-ortiz-a3b657a0/"
                     }
                 });
             });
